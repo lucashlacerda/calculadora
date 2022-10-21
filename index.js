@@ -1,10 +1,11 @@
 const buttons = document.querySelectorAll('button');
 const input = document.querySelector('#visor')
 let result;
-let operacao;
+let operador = '';
 
 buttons.forEach(button => button.addEventListener('click', ()=>{    
     trataNumeros(button.value);
+    console.log(result);
 }))
 
 document.body.addEventListener('keydown', (e)=>{
@@ -50,9 +51,11 @@ function trataNumeros(tecla){
             alteraNumVisor(tecla);
             break;
         case '+': case '-': case '*': case '/': 
+           if(operador == ''){
             result = parseFloat(input.value);
             operador = tecla;
             zeraVisor();
+           }
             break;
         case 'c': case 'Delete':
             zeraVisor();
