@@ -4,24 +4,13 @@ let result;
 let operacao;
 
 buttons.forEach(button => button.addEventListener('click', ()=>{    
-    switch(button.value){
-        case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case '.':
-            alteraNumVisor(button.value);
-            break;
-        case '+': case '-': case '*': case '/': 
-            result = parseFloat(input.value);
-            operador = button.value;
-            zeraVisor();
-            break;
-        case 'c':
-            zeraVisor();
-            result = 0;
-            operador = '';
-        case '=':
-            imprimeResultado();
-            break;
-    }
+    trataNumeros(button.value);
 }))
+
+document.body.addEventListener('keydown', (e)=>{
+    trataNumeros(e.key);
+    console.log(e.key)
+})
 
 function alteraNumVisor(num){
     if(input.value == '0' && num != '0'){
@@ -51,6 +40,26 @@ function imprimeResultado(){
         case '/':
             result /= parseFloat(input.value);
             input.value = result;
+            break;
+    }
+}
+
+function trataNumeros(tecla){
+    switch(tecla){
+        case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case '.':
+            alteraNumVisor(tecla);
+            break;
+        case '+': case '-': case '*': case '/': 
+            result = parseFloat(input.value);
+            operador = tecla;
+            zeraVisor();
+            break;
+        case 'c': case 'Delete':
+            zeraVisor();
+            result = 0;
+            operador = '';
+        case '=': case 'Enter':
+            imprimeResultado();
             break;
     }
 }
